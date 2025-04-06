@@ -5,9 +5,6 @@ import 'injection_container.dart';
 import 'app.dart';
 
 void main() async {
-  // riverpod 주입
-  final container = ProviderContainer();
-  await setupInjection(container);
-
+  await setupInjection();
   runApp(ProviderScope(child: MyApp()));
 }
