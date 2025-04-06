@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'core/api/dio_client.dart';
 import 'features/home/data/datasources/chart_remote_datasource.dart';
+import 'features/home/domain/repositories/chart_repository.dart';
 import 'features/home/domain/repositories/chart_repository_impl.dart';
 import 'features/home/domain/usecases/fetch_chart_data.dart';
 
@@ -21,12 +22,12 @@ Future<void> setupInjection() async {
   );
 
   // 차트 Repository 등록
-  getIt.registerLazySingleton<ChartRepositoryImpl>(
+  getIt.registerLazySingleton<ChartRepository>(
         () => ChartRepositoryImpl(getIt<ChartRemoteDataSource>()),
   );
 
   // FetchChartData UseCase 등록
   getIt.registerLazySingleton<FetchChartData>(
-        () => FetchChartData(getIt<ChartRepositoryImpl>()),
+        () => FetchChartData(getIt<ChartRepository>()),
   );
 }

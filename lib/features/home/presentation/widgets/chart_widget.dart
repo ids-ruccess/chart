@@ -1,7 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../domain/entities/chart_data.dart'; // Provider들이 등록된 파일
 import '../providers/chart_provider.dart';
 
 class ChartWidget extends ConsumerWidget {

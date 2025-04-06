@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 
 class DioClient {
   final Dio dio;
@@ -18,6 +19,7 @@ class DioClient {
           return handler.next(options);
         },
         onError: (DioException e, handler) {
+          debugPrint(e.toString());
           // 에러 로깅 혹은 재시도 로직 등을 추가할 수 있습니다.
           return handler.next(e);
         },
