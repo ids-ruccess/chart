@@ -14,7 +14,12 @@ class ButtonWidget extends ConsumerWidget {
       child: ElevatedButton(
         onPressed: () {
           // 예시: 날짜를 '2025-04-03'으로 변경하고, 업데이트
-          ref.read(selectedDateProvider.notifier).state = '2025-04-03';
+
+          if(ref.read(selectedDateProvider.notifier).state == '2025-04-03'){
+            ref.read(selectedDateProvider.notifier).state = '2025-04-04';
+          }else{
+            ref.read(selectedDateProvider.notifier).state = '2025-04-03';
+          }
           ref.read(homeProvider.notifier).updateListItems(ref.read(homeProvider).count + 1);
         },
         child: const Text('State Update'),

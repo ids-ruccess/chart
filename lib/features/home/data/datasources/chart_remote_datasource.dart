@@ -11,14 +11,12 @@ class ChartRemoteDataSource {
   Future<ChartData> fetchChartData(String date) async {
     try {
       final response = await dioClient.get('/v1/user/app/glucose?date=$date');
-      debugPrint("--------------");
-      debugPrint(date);
+      debugPrint('[fetchChartData] date : $date');
       if (response.statusCode == 200) {
         final jsonData = response.data is String
             ? json.decode(response.data)
             : response.data;
-
-        debugPrint(response.data.toString());
+        debugPrint('------------------------------');
         return ChartData.fromJson(jsonData);
       } else {
         throw Exception('Failed to load chart data');

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../providers/chart_provider.dart';
+import '../providers/chart/chart_provider.dart';
 import '../providers/date_provider.dart';
 // import '../providers/home_provider.dart';
-import '../widgets/chart_widget.dart';
+import '../widgets/chart/chart_widget.dart';
 import '../widgets/list_widget.dart';
 import '../widgets/button_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -31,7 +31,7 @@ class HomePage extends ConsumerWidget {
             children: [
               Text('Selected Date: $selectedDate'),
               // ChartWidget은 fetchChartDataProvider 결과(chartData)를 인자로 받습니다.
-              ChartWidget( chartData: chartData),
+              const ChartWidget(),
               const SizedBox(height: 16),
               // ListWidget은 homeProvider의 리스트 상태를 표시합니다.
               const ListWidget(),
