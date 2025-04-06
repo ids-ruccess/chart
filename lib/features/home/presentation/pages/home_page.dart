@@ -1,27 +1,45 @@
 import 'package:flutter/material.dart';
+import '../providers/chart_provider.dart';
+import '../providers/date_provider.dart';
+// import '../providers/home_provider.dart';
 import '../widgets/chart_widget.dart';
 import '../widgets/list_widget.dart';
 import '../widgets/button_widget.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    // 선택된 날짜 구독
+    final selectedDate = ref.watch(selectedDateProvider);
+    // 선택된 날짜에 따른 차트 데이터 구독
+    final asyncChartData = ref.watch(fetchChartDataProvider(selectedDate));
+    // 홈의 리스트 상태 구독
+    // final homeState = ref.watch(homeProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('홈'),
       ),
-      body: Column(
-        children: const [
-          ChartWidget(),
-
-          SizedBox(height: 16),
-          // 리스트 위젯: 차트 아래, 남은 영역을 채움
-          ListWidget(),
-          // 버튼 위젯: 하단에 위치하여 전체 상태 업데이트
-          ButtonWidget(),
-        ],
+      body: asyncChartData.when(
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, st) => Center(child: Text('Error: $error')),
+        data: (chartData) {
+          return Column(
+            children: [
+              Text('Selected Date: $selectedDate'),
+              // ChartWidget은 fetchChartDataProvider 결과(chartData)를 인자로 받습니다.
+              ChartWidget( chartData: chartData),
+              const SizedBox(height: 16),
+              // ListWidget은 homeProvider의 리스트 상태를 표시합니다.
+              const ListWidget(),
+              // ButtonWidget: 버튼을 누르면 선택된 날짜 및 리스트 상태가 업데이트됩니다.
+              const ButtonWidget(),
+            ],
+          );
+        },
       ),
     );
   }

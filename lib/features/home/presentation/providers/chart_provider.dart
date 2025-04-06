@@ -10,9 +10,8 @@ final chartRepositoryProvider = Provider<ChartRepository>((ref) {
   return getIt<ChartRepository>();
 });
 
-// 차트 데이터 프로바이더
-final fetchChartDataProvider = FutureProvider<ChartData>((ref) async {
-  final fetchChartData = getIt<FetchChartData>(); // DI된 인스턴스를 사용
-  return await fetchChartData();
+// 차트 데이터 프로바이더: date를 인자로 받도록 FutureProvider.family 사용
+final fetchChartDataProvider = FutureProvider.family<ChartData, String>((ref, date) async {
+  final fetchChartData = getIt<FetchChartData>(); // 인자 없이 DI된 인스턴스 가져오기
+  return await fetchChartData(date); // 가져온 인스턴스를 호출할 때 인자(date) 전달
 });
-

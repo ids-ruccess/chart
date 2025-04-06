@@ -8,9 +8,11 @@ class ChartRemoteDataSource {
   final DioClient dioClient;
   ChartRemoteDataSource(this.dioClient);
 
-  Future<ChartData> fetchChartData() async {
+  Future<ChartData> fetchChartData(String date) async {
     try {
-      final response = await dioClient.get('/v1/user/app/glucose?date=2025-04-04');
+      final response = await dioClient.get('/v1/user/app/glucose?date=$date');
+      debugPrint("--------------");
+      debugPrint(date);
       if (response.statusCode == 200) {
         final jsonData = response.data is String
             ? json.decode(response.data)

@@ -6,7 +6,7 @@ class FetchChartData {
   final ChartRepository repository;
   FetchChartData(this.repository); // 이걸 인자로 받아서
 
-  Future<ChartData> call() async {
-    return await repository.getChartData(); // 이걸 해야함
+  Future<ChartData> call(String date) async {
+    return await repository.getChartData(date); // 이걸 해야함
   }
 }

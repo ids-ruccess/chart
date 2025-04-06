@@ -8,7 +8,7 @@ class ChartRepositoryImpl implements ChartRepository {
   ChartRepositoryImpl(this.remoteDataSource);
 
   @override
-  Future<ChartData> getChartData() async {
-    return await remoteDataSource.fetchChartData();
+  Future<ChartData> getChartData(String date) async {
+    return await remoteDataSource.fetchChartData(date);
   }
 }

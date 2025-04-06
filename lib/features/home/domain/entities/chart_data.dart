@@ -1,12 +1,31 @@
+class UserDietHistoryData{
+  final int? userDietHistoryId;
+  final int? userGlucoseAreaAlertId;
+
+  UserDietHistoryData({
+    this.userDietHistoryId,
+    this.userGlucoseAreaAlertId
+  });
+
+  factory UserDietHistoryData.fromJson(Map<String, dynamic> json) {
+    return UserDietHistoryData(
+      userDietHistoryId: json['userDietHistoryId'],
+      userGlucoseAreaAlertId: json['userGlucoseAreaAlertId']
+    );
+  }
+}
+
 class GlucoseData {
   final int measuredTs;
   final int glucose;
   final int? spike;
+  final UserDietHistoryData? history;
 
   GlucoseData({
     required this.measuredTs,
     required this.glucose,
     this.spike,
+    this.history,
   });
 
   factory GlucoseData.fromJson(Map<String, dynamic> json) {
@@ -14,6 +33,9 @@ class GlucoseData {
       measuredTs: json['measuredTs'],
       glucose: json['glucose'],
       spike: json['spike'],
+      history: json['history'] != null
+          ? UserDietHistoryData.fromJson(json['history'])
+          : null,
     );
   }
 }

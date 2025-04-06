@@ -1,5 +1,7 @@
+// lib/features/home/presentation/widgets/button_widget.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../providers/date_provider.dart';
 import '../providers/home_provider.dart';
 
 class ButtonWidget extends ConsumerWidget {
@@ -9,12 +11,13 @@ class ButtonWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      // 버튼을 누르면 전체 홈 페이지 상태가 업데이트됩니다.
       child: ElevatedButton(
         onPressed: () {
-          ref.read(homeProvider.notifier).updatePageState();
+          // 예시: 날짜를 '2025-04-03'으로 변경하고, 업데이트
+          ref.read(selectedDateProvider.notifier).state = '2025-04-03';
+          ref.read(homeProvider.notifier).updateListItems(ref.read(homeProvider).count + 1);
         },
-        child: const Text('state update'),
+        child: const Text('State Update'),
       ),
     );
   }
